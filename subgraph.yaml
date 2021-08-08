@@ -1,0 +1,53 @@
+specVersion: 0.0.1
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: NftBrawl
+    network: ropsten
+    source:
+      address: "0xdA5c1d32d3cFb46Ea83E8Cd41E3D5403F0B94Bb7"
+      abi: NftBrawl
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.2
+      language: wasm/assemblyscript
+      entities:
+        - AnnounceAllTimeWinners
+        - AnnounceDailyWinners
+        - MaxSpendUpdated
+        - MinSpendUpdated
+        - Minted
+        - NftFactorySet
+        - OwnershipTransferred
+        - PrizeSet
+        - Rewarded
+        - SessionStarted
+        - Spent
+      abis:
+        - name: NftBrawl
+          file: ./abis/NftBrawl.json
+      eventHandlers:
+        - event: AnnounceAllTimeWinners(indexed uint256,address[10])
+          handler: handleAnnounceAllTimeWinners
+        - event: AnnounceDailyWinners(indexed uint256,address[10])
+          handler: handleAnnounceDailyWinners
+        - event: MaxSpendUpdated(uint256)
+          handler: handleMaxSpendUpdated
+        - event: MinSpendUpdated(uint256)
+          handler: handleMinSpendUpdated
+        - event: Minted(indexed address,uint256,uint256)
+          handler: handleMinted
+        - event: NftFactorySet(address)
+          handler: handleNftFactorySet
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: PrizeSet(uint256[10],uint256[10])
+          handler: handlePrizeSet
+        - event: Rewarded(indexed address,string,uint256)
+          handler: handleRewarded
+        - event: SessionStarted(indexed uint256,uint256,uint256,uint256)
+          handler: handleSessionStarted
+        - event: Spent(indexed address,uint256,uint256,uint256,uint256)
+          handler: handleSpent
+      file: ./src/mapping.ts

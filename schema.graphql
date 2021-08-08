@@ -1,0 +1,6 @@
+type ExampleEntity @entity {
+  id: ID!
+  count: BigInt!
+  sessionId: BigInt! # uint256
+  mintedWinners: [Bytes]! # address[10]
+}
